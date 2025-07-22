@@ -25,75 +25,75 @@ Plone is an **open-source enterprise CMS** that powers websites for governments,
 ### High-Level Architecture Diagram
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    PLONE 6 ARCHITECTURE                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────────────┐    ┌─────────────────────────────────┐ │
-│  │   FRONTEND LAYER    │    │         DEPLOYMENT              │ │
-│  ├─────────────────────┤    ├─────────────────────────────────┤ │
-│  │                     │    │ • Docker Containers             │ │
-│  │ ┌─────────────────┐ │    │ • Kubernetes/Orchestration     │ │
-│  │ │ VOLTO (React)   │ │    │ • Load Balancers               │ │
-│  │ │ • Components    │ │    │ • Reverse Proxies              │ │
-│  │ │ • Blocks System │ │    │ • CDN Integration              │ │
-│  │ │ • Theme Engine  │ │    │ • SSL/Security                 │ │
-│  │ │ • Redux Store   │ │    └─────────────────────────────────┘ │
-│  │ └─────────────────┘ │                                        │
-│  │                     │                                        │
-│  │ ┌─────────────────┐ │                                        │
-│  │ │ CLASSIC UI      │ │                                        │
-│  │ │ • Server Templates│                                        │
-│  │ │ • Diazo Theming │ │                                        │
-│  │ │ • Viewlets/Views│ │                                        │
-│  │ └─────────────────┘ │                                        │
-│  └─────────────────────┘                                        │
-│              │                                                  │
-│              │ HTTP/REST API                                    │
-│              ▼                                                  │
+┌──────────────────────────────────────────────────────────────────┐
+│                    PLONE 6 ARCHITECTURE                          │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌─────────────────────┐    ┌─────────────────────────────────┐  │
+│  │   FRONTEND LAYER    │    │         DEPLOYMENT              │  │
+│  ├─────────────────────┤    ├─────────────────────────────────┤  │
+│  │                     │    │ • Docker Containers             │  │
+│  │ ┌─────────────────┐ │    │ • Kubernetes/Orchestration      │  │
+│  │ │ VOLTO (React)   │ │    │ • Load Balancers                │  │
+│  │ │ • Components    │ │    │ • Reverse Proxies               │  │
+│  │ │ • Blocks System │ │    │ • CDN Integration               │  │
+│  │ │ • Theme Engine  │ │    │ • SSL/Security                  │  │
+│  │ │ • Redux Store   │ │    └─────────────────────────────────┘  │
+│  │ └─────────────────┘ │                                         │
+│  │                     │                                         │
+│  │ ┌─────────────────┐ │                                         │
+│  │ │ CLASSIC UI      │ │                                         │
+│  │ │ • Server Templates│                                         │
+│  │ │ • Diazo Theming │ │                                         │
+│  │ │ • Viewlets/Views│ │                                         │
+│  │ └─────────────────┘ │                                         │ 
+│  └─────────────────────┘                                         │ 
+│              │                                                   │ 
+│              │ HTTP/REST API                                     │
+│              ▼                                                   │
 │  ┌─────────────────────────────────────────────────────────────┐ │
 │  │                 BACKEND LAYER                               │ │
 │  ├─────────────────────────────────────────────────────────────┤ │
 │  │                                                             │ │
 │  │ ┌─────────────────────────────────────────────────────────┐ │ │
 │  │ │                PLONE CORE                               │ │ │
-│  │ │ ┌─────────────────┐  ┌─────────────────┐               │ │ │
-│  │ │ │ CONTENT TYPES   │  │ WORKFLOW ENGINE │               │ │ │
-│  │ │ │ • Dexterity     │  │ • State Machine │               │ │ │
-│  │ │ │ • Behaviors     │  │ • Permissions   │               │ │ │
-│  │ │ │ • Schemas       │  │ • Transitions   │               │ │ │
-│  │ │ └─────────────────┘  └─────────────────┘               │ │ │
+│  │ │ ┌─────────────────┐  ┌─────────────────┐                │ │ │
+│  │ │ │ CONTENT TYPES   │  │ WORKFLOW ENGINE │                │ │ │
+│  │ │ │ • Dexterity     │  │ • State Machine │                │ │ │
+│  │ │ │ • Behaviors     │  │ • Permissions   │                │ │ │
+│  │ │ │ • Schemas       │  │ • Transitions   │                │ │ │
+│  │ │ └─────────────────┘  └─────────────────┘                │ │ │
 │  │ │                                                         │ │ │
-│  │ │ ┌─────────────────┐  ┌─────────────────┐               │ │ │
-│  │ │ │ SEARCH/INDEXING │  │ SECURITY SYSTEM │               │ │ │
-│  │ │ │ • Portal Catalog│  │ • PAS (Auth)    │               │ │ │
-│  │ │ │ • ZCatalog      │  │ • Role/Perms    │               │ │ │
-│  │ │ │ • Text Indexing │  │ • CSRF Protection│               │ │ │
-│  │ │ └─────────────────┘  └─────────────────┘               │ │ │
+│  │ │ ┌─────────────────┐  ┌─────────────────┐                │ │ │
+│  │ │ │ SEARCH/INDEXING │  │ SECURITY SYSTEM │                │ │ │
+│  │ │ │ • Portal Catalog│  │ • PAS (Auth)    │                │ │ │
+│  │ │ │ • ZCatalog      │  │ • Role/Perms    │                │ │ │
+│  │ │ │ • Text Indexing │  │ • CSRF Protection                │ │ │
+│  │ │ └─────────────────┘  └─────────────────┘                │ │ │
 │  │ └─────────────────────────────────────────────────────────┘ │ │
 │  │                                                             │ │
 │  │ ┌─────────────────────────────────────────────────────────┐ │ │
 │  │ │                 ZOPE LAYER                              │ │ │
-│  │ │ ┌─────────────────┐  ┌─────────────────┐               │ │ │
-│  │ │ │ ZCA COMPONENTS  │  │ HTTP SERVER     │               │ │ │
-│  │ │ │ • Interfaces    │  │ • WSGI/Waitress │               │ │ │
-│  │ │ │ • Adapters      │  │ • Request/Resp  │               │ │ │
-│  │ │ │ • Utilities     │  │ • Traversal     │               │ │ │
-│  │ │ └─────────────────┘  └─────────────────┘               │ │ │
+│  │ │ ┌─────────────────┐  ┌─────────────────┐                │ │ │
+│  │ │ │ ZCA COMPONENTS  │  │ HTTP SERVER     │                │ │ │
+│  │ │ │ • Interfaces    │  │ • WSGI/Waitress │                │ │ │
+│  │ │ │ • Adapters      │  │ • Request/Resp  │                │ │ │
+│  │ │ │ • Utilities     │  │ • Traversal     │                │ │ │
+│  │ │ └─────────────────┘  └─────────────────┘                │ │ │
 │  │ └─────────────────────────────────────────────────────────┘ │ │
 │  │                                                             │ │
 │  │ ┌─────────────────────────────────────────────────────────┐ │ │
 │  │ │              DATABASE LAYER                             │ │ │
-│  │ │ ┌─────────────────┐  ┌─────────────────┐               │ │ │
-│  │ │ │ ZODB (Primary)  │  │ EXTERNAL DBS    │               │ │ │
-│  │ │ │ • Object Store  │  │ • PostgreSQL    │               │ │ │
-│  │ │ │ • ACID Trans    │  │ • MySQL         │               │ │ │
-│  │ │ │ • BTree Storage │  │ • RelStorage    │               │ │ │
-│  │ │ └─────────────────┘  └─────────────────┘               │ │ │
+│  │ │ ┌─────────────────┐  ┌─────────────────┐                │ │ │
+│  │ │ │ ZODB (Primary)  │  │ EXTERNAL DBS    │                │ │ │
+│  │ │ │ • Object Store  │  │ • PostgreSQL    │                │ │ │
+│  │ │ │ • ACID Trans    │  │ • MySQL         │                │ │ │
+│  │ │ │ • BTree Storage │  │ • RelStorage    │                │ │ │
+│  │ │ └─────────────────┘  └─────────────────┘                │ │ │
 │  │ └─────────────────────────────────────────────────────────┘ │ │
 │  └─────────────────────────────────────────────────────────────┘ │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ### Core Architecture Principles
@@ -111,9 +111,9 @@ Plone is an **open-source enterprise CMS** that powers websites for governments,
 
 ### Backend Foundation
 ```python
-┌─ Python 3.11+ ─────────────────────────────────────┐
-│  ├─ Zope Application Server (Web Framework)        │
-│  ├─ ZODB (Object Database)                         │
+┌─ Python 3.11+ ────────────────────────────────────┐
+│  ├─ Zope Application Server (Web Framework)       │
+│  ├─ ZODB (Object Database)                        │
 │  ├─ Plone CMS Core (Content Management)           │
 │  ├─ plone.restapi (REST API Layer)                │
 │  └─ 326+ Integrated Packages                      │
@@ -122,20 +122,20 @@ Plone is an **open-source enterprise CMS** that powers websites for governments,
 
 ### Frontend Options
 ```javascript
-┌─ Modern Frontend (Volto) ──────────────────────────┐
-│  ├─ React 18+ (Component Framework)                │
-│  ├─ Redux (State Management)                       │
-│  ├─ Semantic UI (Design System)                    │
-│  ├─ Blocks System (Page Building)                  │
-│  └─ Server-Side Rendering (SSR)                    │
+┌─ Modern Frontend (Volto) ─────────────────────────┐
+│  ├─ React 18+ (Component Framework)               │
+│  ├─ Redux (State Management)                      │
+│  ├─ Semantic UI (Design System)                   │
+│  ├─ Blocks System (Page Building)                 │
+│  └─ Server-Side Rendering (SSR)                   │
 └───────────────────────────────────────────────────┘
 
-┌─ Classic Frontend (Traditional) ───────────────────┐
-│  ├─ Zope Page Templates (Server Rendering)         │
+┌─ Classic Frontend (Traditional) ──────────────────┐
+│  ├─ Zope Page Templates (Server Rendering)        │
 │  ├─ Diazo Theme Engine (XSLT Theming)             │
-│  ├─ Bootstrap 5 (CSS Framework)                    │
+│  ├─ Bootstrap 5 (CSS Framework)                   │
 │  ├─ Mockup/Patternslib (JavaScript)               │
-│  └─ TinyMCE (Rich Text Editor)                     │
+│  └─ TinyMCE (Rich Text Editor)                    │
 └───────────────────────────────────────────────────┘
 ```
 
@@ -389,7 +389,7 @@ services:
 
 #### **High-Availability Setup**
 ```
-┌─ Load Balancer (HAProxy/Nginx) ────────────────────┐
+┌─ Load Balancer (HAProxy/Nginx) ───────────────────┐
 │  ├─ Frontend 1 (Volto)                            │
 │  ├─ Frontend 2 (Volto)                            │
 │  ├─ Backend 1 (Plone + ZEO Client)                │  

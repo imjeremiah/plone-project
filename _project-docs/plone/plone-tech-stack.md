@@ -9,24 +9,24 @@ Plone 6 represents a **sophisticated, multi-layered technology stack** built on 
 ## 🏗️ Architecture Layers
 
 ```
-┌─────────────────────────────────────────────────────┐
+┌────────────────────────────────────────────────────┐
 │                PLONE 6 TECH STACK                  │
-├─────────────────────────────────────────────────────┤
-│  Frontend Layer     │  Development Tools             │
-│  ├─ Volto (React)   │  ├─ Buildout/pip              │
-│  └─ Classic UI      │  ├─ mr.developer              │
-│                     │  └─ Testing Frameworks        │
-├─────────────────────────────────────────────────────┤
-│                Backend Layer                        │
-│  ├─ Plone CMS Core  │  ├─ REST API                  │
-│  ├─ Zope Server     │  ├─ Component Architecture     │
-│  └─ Python Runtime  │  └─ Security Framework        │
-├─────────────────────────────────────────────────────┤
-│               Database & Storage                    │
-│  ├─ ZODB            │  ├─ Blob Storage              │
-│  ├─ RelStorage      │  ├─ Caching Systems           │
-│  └─ File Storage    │  └─ Search Indexes            │
-└─────────────────────────────────────────────────────┘
+├────────────────────────────────────────────────────┤
+│  Frontend Layer     │  Development Tools           │
+│  ├─ Volto (React)   │  ├─ Buildout/pip             │
+│  └─ Classic UI      │  ├─ mr.developer             │
+│                     │  └─ Testing Frameworks       │
+├────────────────────────────────────────────────────┤
+│                Backend Layer                       │
+│  ├─ Plone CMS Core  │  ├─ REST API                 │
+│  ├─ Zope Server     │  ├─ Component Architecture   │
+│  └─ Python Runtime  │  └─ Security Framework       │
+├────────────────────────────────────────────────────┤
+│               Database & Storage                   │
+│  ├─ ZODB            │  ├─ Blob Storage             │
+│  ├─ RelStorage      │  ├─ Caching Systems          │
+│  └─ File Storage    │  └─ Search Indexes           │
+└────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -50,6 +50,16 @@ Python 3.11+ (3.10+ supported)
 ├─ PEP 621 (Project Metadata)
 └─ WSGI 1.0 (Web Server Gateway Interface)
 ```
+
+**Best Practices**: Follow PEP 8 for code style; use virtual environments (venv) for isolation; pin dependencies in requirements.txt; leverage async/await for I/O-bound tasks in Python 3.11+.
+
+**Limitations**: No built-in support for older Python (pre-3.10 in Plone 6); performance in CPU-bound tasks may require extensions like Cython.
+
+**Conventions**: Use type hints (PEP 484); prefer context managers for resources; structure packages with setup.cfg/pyproject.toml.
+
+**Important Considerations**: Ensure compatibility with Zope's event loop for async; monitor memory usage in long-running processes.
+
+**Common Pitfalls**: Mixing Python versions in dependencies; ignoring GIL in multi-threaded code; not handling exceptions in async coroutines.
 
 #### **Zope Application Server**
 ```python
@@ -80,6 +90,16 @@ Zope 5.8+
 └─ Browser resource declarations
 ```
 
+**Best Practices**: Use ZCA for loose coupling (define interfaces, register adapters/utilities); minimize ZCML for simple components; enable debug mode only in dev.
+
+**Limitations**: ZCML can be verbose; Acquisition may lead to unexpected behavior if overused; not ideal for non-web apps.
+
+**Conventions**: Name interfaces with 'I' prefix; use factory functions for utilities; declare permissions in ZCML.
+
+**Important Considerations**: Security policies must be explicitly defined; traversal affects URL structure—plan paths carefully.
+
+**Common Pitfalls**: Over-relying on Acquisition instead of explicit dependencies; ZCML syntax errors causing silent failures; not handling conflicts in component registry.
+
 ### Database Layer
 
 #### **ZODB (Zope Object Database)**
@@ -107,6 +127,16 @@ ZODB 6.1.1
 ├─ Multi-Version Concurrency Control (MVCC)
 └─ Pack/Garbage Collection
 ```
+
+**Best Practices**: Pack ZODB regularly to remove old revisions; use ZEO for scaling; implement conflict resolution in custom classes.
+
+**Limitations**: Not relational—queries are object-based; can grow large without packing; no built-in sharding.
+
+**Conventions**: Inherit from persistent.Persistent; use transaction.commit()/abort() for changes; store blobs for large data.
+
+**Important Considerations**: Monitor Data.fs size; use MVCC for read-heavy apps; backup before packing.
+
+**Common Pitfalls**: Forgetting to commit transactions; ignoring conflict errors in high-concurrency; storing non-persistent objects in ZODB.
 
 #### **Caching Technologies**
 ```python
