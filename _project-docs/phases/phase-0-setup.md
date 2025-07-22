@@ -10,6 +10,7 @@ This phase establishes the foundational setup of the Plone 6.1 instance, creatin
 - Basic verification (e.g., create/test a sample page).
 
 ## Tasks/Features
+
 ### Task 1: Environment and Installation
 1. Install prerequisites (Python 3.11, Node.js) per plone-tech-stack.md.
 2. Create project directory and virtual environment.
@@ -20,7 +21,7 @@ This phase establishes the foundational setup of the Plone 6.1 instance, creatin
 ### Task 2: Repo Forking and Branching
 1. Fork Plone repo on GitHub.
 2. Clone locally into project dir.
-3. Create 'original-plone' branch for before state.
+3. Create 'plone-project' branch for before state.
 4. Create 'edu-plone' branch for after/development.
 5. Commit initial setup to both.
 

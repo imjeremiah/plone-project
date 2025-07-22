@@ -10,6 +10,7 @@ Analyze and map Plone's core architecture/business logic (e.g., ZODB flows, ZCA 
 - 'Before' demo snapshot on 'original-plone' branch.
 
 ## Tasks/Features
+
 ### Task 1: Architecture Mapping
 1. Review plone-overview.md/tech-stack.md for layers (frontend/backend/database).
 2. Map ZODB flows (e.g., object persistence).
